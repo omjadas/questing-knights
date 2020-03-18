@@ -1,5 +1,5 @@
 /**
- * @author odas@student.unimelb.edu.au <835780>
+ * @author Omja Das <835780>
  */
 
 public class Agenda {
