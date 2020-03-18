@@ -32,24 +32,22 @@ class Params {
     // generate a random mingling duration
     static int getMinglingTime() {
         return (int) Math.max(
-                0.0,
-                rnd.nextGaussian() * MEAN_MINGLING_TIME / 6 +
-                        MEAN_MINGLING_TIME);
+            0.0,
+            rnd.nextGaussian() * MEAN_MINGLING_TIME / 6 + MEAN_MINGLING_TIME);
     }
 
     // generate a random questing duration
     static int getQuestingTime() {
         return (int) Math.max(
-                0.0,
-                rnd.nextGaussian() * MEAN_QUESTING_TIME / 6 +
-                        MEAN_QUESTING_TIME);
+            0.0,
+            rnd.nextGaussian() * MEAN_QUESTING_TIME / 6 + MEAN_QUESTING_TIME);
     }
 
     // generate a random interval for King Arthur to be away
     static int getKingWaitingTime() {
         return (int) Math.max(
-                0.0,
-                (rnd.nextGaussian() * MEAN_KING_WAITING_TIME / 8) +
-                        MEAN_KING_WAITING_TIME);
+            0.0,
+            (rnd.nextGaussian() * MEAN_KING_WAITING_TIME / 8) +
+                MEAN_KING_WAITING_TIME);
     }
 }
