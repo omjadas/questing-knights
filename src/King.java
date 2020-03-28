@@ -3,27 +3,41 @@
  */
 public class King extends Thread {
     private String name;
-    private Hall greatHall;
+    private Hall hall;
 
-    public King(String name, Hall greatHall) {
+    /**
+     * Create a King with a given name and hall
+     *
+     * @param name name of the King
+     * @param hall hall of the King
+     */
+    public King(String name, Hall hall) {
         this.name = name;
-        this.greatHall = greatHall;
+        this.hall = hall;
     }
 
+    /**
+     * Perform the actions of the King
+     */
     @Override
     public void run() {
         while (!isInterrupted()) {
             try {
-                greatHall.enter(this);
-                greatHall.startMeeting();
-                greatHall.endMeeting();
-                greatHall.exit(this);
+                hall.enter(this);
+                hall.startMeeting();
+                hall.endMeeting();
+                hall.exit(this);
                 sleep(Params.getKingWaitingTime());
             } catch (InterruptedException e) {
             }
         }
     }
 
+    /**
+     * Returns the King's name
+     *
+     * @return the name of the King
+     */
     @Override
     public String toString() {
         return name;

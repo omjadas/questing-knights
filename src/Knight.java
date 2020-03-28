@@ -6,11 +6,20 @@ public class Knight extends Thread {
     private Hall hall;
     private volatile Quest quest;
 
+    /**
+     * Create a Knight with a given id and hall
+     *
+     * @param id id of the Knight
+     * @param hall hall of the Knight
+     */
     public Knight(int id, Hall hall) {
         this.id = id;
         this.hall = hall;
     }
 
+    /**
+     * Perform the actions of a Knight
+     */
     @Override
     public void run() {
         while (!isInterrupted()) {
@@ -39,11 +48,21 @@ public class Knight extends Thread {
         }
     }
 
+    /**
+     * Returns a unique string identifying the Knight
+     *
+     * @return unique string identifying the Knight
+     */
     @Override
     public String toString() {
         return "Knight " + id;
     }
 
+    /**
+     * Generate a hash for the Knight
+     *
+     * @return the hash of the Knight
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -52,6 +71,12 @@ public class Knight extends Thread {
         return result;
     }
 
+    /**
+     * Compare the Knight with an Object
+     *
+     * @param obj object to compare the quest to
+     * @return true if the Knight equals obj, false otherwise
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -66,10 +91,20 @@ public class Knight extends Thread {
         return true;
     }
 
+    /**
+     * Retrieve the knight's current quest
+     *
+     * @return the current quest assigned to the knight
+     */
     public Quest getQuest() {
         return quest;
     }
 
+    /**
+     * Release the knight's current quest
+     *
+     * @return the quest being released
+     */
     public Quest releaseQuest() {
         if (quest != null) {
             System.out.println(
@@ -78,6 +113,11 @@ public class Knight extends Thread {
         return quest;
     }
 
+    /**
+     * Assign a quest to the knight
+     *
+     * @param quest the quest to assign to the knight
+     */
     public void acquireQuest(Quest quest) {
         this.quest = quest;
         System.out.println(

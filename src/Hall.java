@@ -20,6 +20,11 @@ public class Hall {
         this.table = new Table("Round Table");
     }
 
+    /**
+     * Called when a knight enters the hall
+     *
+     * @param knight the knight entering the hall
+     */
     public synchronized void enter(Knight knight) {
         while (king != null) {
             try {
@@ -32,6 +37,11 @@ public class Hall {
             String.format("%s enters the %s.", knight.toString(), name));
     }
 
+    /**
+     * Called when a knight exits the hall
+     *
+     * @param knight the knight exiting the hall
+     */
     public synchronized void exit(Knight knight) {
         while (king != null) {
             try {
@@ -45,6 +55,11 @@ public class Hall {
         notifyAll();
     }
 
+    /**
+     * Called when the king enters the hall
+     *
+     * @param king the king entering the hall
+     */
     public synchronized void enter(King king) {
         while (!knights.stream().allMatch(knight -> {
             Quest quest = knight.getQuest();
@@ -64,6 +79,11 @@ public class Hall {
         notifyAll();
     }
 
+    /**
+     * Called when the king exits the hall
+     *
+     * @param king the king exiting the hall
+     */
     public synchronized void exit(King king) {
         this.king = null;
         System.out.println(
@@ -71,24 +91,29 @@ public class Hall {
         notifyAll();
     }
 
+    /**
+     * Called when a knight sits down
+     *
+     * @param knight the knight sitting down
+     */
     public synchronized void sit(Knight knight) {
         table.sit(knight);
         notifyAll();
     }
 
+    /**
+     * Called when a knight stands up
+     *
+     * @param knight the knight standing up
+     */
     public synchronized void stand(Knight knight) {
         table.stand(knight);
         notifyAll();
     }
 
-    public Table getTable() {
-        return table;
-    }
-
-    public King getKing() {
-        return king;
-    }
-
+    /**
+     * Called at the start of the meeting
+     */
     public synchronized void startMeeting() {
         while (table.numSitting() < knights.size()) {
             try {
@@ -101,6 +126,11 @@ public class Hall {
         notifyAll();
     }
 
+    /**
+     * Perform the actions required of a knight during a meeting
+     *
+     * @param knight knight to perform actions
+     */
     public synchronized void meeting(Knight knight) {
         while (!meetingInProgress) {
             try {
@@ -115,6 +145,9 @@ public class Hall {
         knight.acquireQuest(agendaNew.getQuest());
     }
 
+    /**
+     * Called at the end of the meeting
+     */
     public synchronized void endMeeting() {
         while (table.numSitting() > 0) {
             try {

@@ -31,21 +31,33 @@ class Params {
 
     static final int AGENDA_SIZE = 1;
 
-    // generate a random mingling duration
+    /**
+     * Generate a random mingling duration
+     *
+     * @return random mingling duration
+     */
     static int getMinglingTime() {
         return (int) Math.max(
             0.0,
             rnd.nextGaussian() * MEAN_MINGLING_TIME / 6 + MEAN_MINGLING_TIME);
     }
 
-    // generate a random questing duration
+    /**
+     * Generate a random questing duration
+     *
+     * @return random questing duration
+     */
     static int getQuestingTime() {
         return (int) Math.max(
             0.0,
             rnd.nextGaussian() * MEAN_QUESTING_TIME / 6 + MEAN_QUESTING_TIME);
     }
 
-    // generate a random interval for King Arthur to be away
+    /**
+     * Generate a random interval for King Arthur to be away
+     *
+     * @return random interval for King Arthur to be away
+     */
     static int getKingWaitingTime() {
         return (int) Math.max(
             0.0,

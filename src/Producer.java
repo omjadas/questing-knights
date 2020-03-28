@@ -8,12 +8,18 @@
 public class Producer extends Thread {
     private Agenda agenda;
 
-    // create a new producer
-    Producer(Agenda newAgenda) {
-        this.agenda = newAgenda;
+    /**
+     * Create a new Producer
+     *
+     * @param agenda agenda to produce the quests for
+     */
+    Producer(Agenda agenda) {
+        this.agenda = agenda;
     }
 
-    // quests
+    /**
+     * Quests
+     */
     @Override
     public void run() {
         while (!isInterrupted()) {

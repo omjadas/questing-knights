@@ -9,12 +9,18 @@ public class Consumer extends Thread {
     // the agenda from which completed quests are removed
     private Agenda agenda;
 
-    // creates a new consumer for the given agenda
-    Consumer(Agenda newAgenda) {
-        this.agenda = newAgenda;
+    /**
+     * Creates a new consumer for the given agenda
+     *
+     * @param agenda agenda to consume quests from
+     */
+    Consumer(Agenda agenda) {
+        this.agenda = agenda;
     }
 
-    // repeatedly collect completed quests from the agenda
+    /**
+     * Repeatedly collect completed quests from the agenda
+     */
     @Override
     public void run() {
         while (!isInterrupted()) {
