@@ -35,14 +35,14 @@ public class Knight extends Thread {
 
     @Override
     public String toString() {
-        return "Knight " + id;
+        return "Knight " + this.id;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + id;
+        result = prime * result + this.id;
         return result;
     }
 
@@ -52,10 +52,10 @@ public class Knight extends Thread {
             return true;
         if (obj == null)
             return false;
-        if (getClass() != obj.getClass())
+        if (this.getClass() != obj.getClass())
             return false;
         Knight other = (Knight) obj;
-        if (id != other.id)
+        if (this.id != other.id)
             return false;
         return true;
     }

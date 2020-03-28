@@ -20,22 +20,31 @@ public class Hall {
 
     public void enterKnight(Knight knight) {
         knights.add(knight);
-        System.out.println(String.format("%s enters the %s.", knight.toString(), name));
+        System.out.println(
+            String.format("%s enters the %s.", knight.toString(), this.name));
     }
 
     public void leaveKnight(Knight knight) {
         knights.remove(knight);
-        System.out.println(String.format("%s exits from %s.", knight.toString(), name));
+        System.out.println(
+            String.format("%s exits from %s.", knight.toString(), this.name));
     }
 
     public void enterKing(KingArthur kingArthur) {
         this.kingArthur = kingArthur;
-        System.out.println(String.format("%s enters the %s.", kingArthur.toString(), name));
+        System.out.println(
+            String.format(
+                "%s enters the %s.",
+                kingArthur.toString(),
+                this.name));
     }
-    
+
     public void leaveKing(KingArthur kingArthur) {
         this.kingArthur = null;
-        System.out.println(kingArthur.toString() + "enters " + name);
-        System.out.println(String.format("%s exits the %s.", kingArthur.toString(), name));
+        System.out.println(
+            String.format(
+                "%s exits the %s.",
+                kingArthur.toString(),
+                this.name));
     }
 }
