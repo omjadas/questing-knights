@@ -16,6 +16,9 @@ public class King extends Thread {
         while (!isInterrupted()) {
             try {
                 greatHall.enter(this);
+                greatHall.startMeeting();
+                greatHall.endMeeting();
+                greatHall.exit(this);
                 sleep(Params.getKingWaitingTime());
             } catch (InterruptedException e) {
             }

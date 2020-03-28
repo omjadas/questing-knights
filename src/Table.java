@@ -28,4 +28,8 @@ public class Table {
         }
         knights.remove(knight);
     }
+
+    public synchronized int numSitting() {
+        return knights.size();
+    }
 }

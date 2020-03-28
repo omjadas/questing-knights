@@ -13,24 +13,40 @@ public class Agenda {
         this.name = name;
     }
 
-    public void removeComplete() {
-        for (int i = 0; i < quests.size(); i++) {
-            Quest quest = quests.get(i);
-            if (quest.completed) {
-                quests.remove(i);
-                System.out.println(
-                    String.format(
-                        "%s removed from %s",
-                        quest.toString(),
-                        name));
-                return;
+    public List<Quest> getCompletedQuests() {
+        List<Quest> completedQuests = new ArrayList<>();
+        for (Quest quest : quests) {
+            if (quest.getCompleted()) {
+                completedQuests.add(quest);
             }
         }
+        return completedQuests;
     }
 
-    public void addNew(Quest quest) {
+    public synchronized Quest removeComplete() {
+        while (getCompletedQuests().size() == 0) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+            }
+        }
+        Quest quest = getCompletedQuests().get(0);
+        quests.remove(quest);
+        return quest;
+    }
+
+    public synchronized void addNew(Quest quest) {
+        while (quests.size() >= Params.AGENDA_SIZE) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+            }
+        }
         quests.add(quest);
-        System.out.println(
-            String.format("%s added to %s", quest.toString(), name));
+        notifyAll();
+    }
+
+    public String getName() {
+        return name;
     }
 }

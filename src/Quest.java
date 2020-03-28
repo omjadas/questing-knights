@@ -13,7 +13,7 @@ public class Quest {
     private static int nextId = 1;
 
     // a flag indicating whether the quest has been completed
-    boolean completed;
+    private boolean completed;
 
     // create a new vessel with a given identifier
     private Quest(int id) {
@@ -26,9 +26,31 @@ public class Quest {
         return new Quest(nextId++);
     }
 
+    public boolean getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted() {
+        completed = true;
+    }
+
     // produce an identifying string for the quest
     @Override
     public String toString() {
         return "Quest " + id;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Quest other = (Quest) obj;
+        if (id != other.id)
+            return false;
+        return true;
     }
 }

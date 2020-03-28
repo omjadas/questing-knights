@@ -26,8 +26,11 @@ public class Knight extends Thread {
             try {
                 hall.enter(this);
                 sleep(Params.getMinglingTime());
-                hall.getTable().sit(this);
-                hall.getTable().stand(this);
+                hall.sit(this);
+                if (quest != null) {
+                    agendaComplete.addNew(quest);
+                }
+                hall.stand(this);
                 sleep(Params.getMinglingTime());
                 hall.exit(this);
                 sleep(Params.getQuestingTime());
