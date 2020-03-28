@@ -3,9 +3,10 @@
  */
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Agenda {
-    private ArrayList<Quest> quests = new ArrayList<>();
+    private List<Quest> quests = new ArrayList<>();
     private String name;
 
     public Agenda(String name) {

@@ -2,10 +2,12 @@
  * @author Omja Das <835780>
  */
 
-public class KingArthur extends Thread {
+public class King extends Thread {
+    private String name;
     private Hall greatHall;
 
-    public KingArthur(Hall greatHall) {
+    public King(String name, Hall greatHall) {
+        this.name = name;
         this.greatHall = greatHall;
     }
 
@@ -14,6 +16,7 @@ public class KingArthur extends Thread {
         while (!isInterrupted()) {
             try {
                 sleep(Params.getKingWaitingTime());
+                greatHall.enter(this);
             } catch (InterruptedException e) {
             }
         }
@@ -21,6 +24,6 @@ public class KingArthur extends Thread {
 
     @Override
     public String toString() {
-        return "King Arthur";
+        return name;
     }
 }

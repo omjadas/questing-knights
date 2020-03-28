@@ -7,6 +7,7 @@ public class Knight extends Thread {
     private Agenda agendaNew;
     private Agenda agendaComplete;
     private Hall greatHall;
+    private Quest quest;
 
     public Knight(
             int id,
@@ -24,10 +25,11 @@ public class Knight extends Thread {
         while (!isInterrupted()) {
             try {
                 sleep(Params.getQuestingTime());
-
+                greatHall.enter(this);
                 sleep(Params.getMinglingTime());
 
                 sleep(Params.getMinglingTime());
+                greatHall.exit(this);
             } catch (InterruptedException e) {
             }
         }
@@ -58,5 +60,13 @@ public class Knight extends Thread {
         if (this.id != other.id)
             return false;
         return true;
+    }
+
+    public Quest getQuest() {
+        return quest;
+    }
+
+    public void setQuest(Quest quest) {
+        this.quest = quest;
     }
 }
