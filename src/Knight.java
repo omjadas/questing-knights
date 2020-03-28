@@ -6,30 +6,31 @@ public class Knight extends Thread {
     private int id;
     private Agenda agendaNew;
     private Agenda agendaComplete;
-    private Hall greatHall;
+    private Hall hall;
     private Quest quest;
 
     public Knight(
             int id,
             Agenda agendaNew,
             Agenda agendaComplete,
-            Hall greatHall) {
+            Hall hall) {
         this.id = id;
         this.agendaNew = agendaNew;
         this.agendaComplete = agendaComplete;
-        this.greatHall = greatHall;
+        this.hall = hall;
     }
 
     @Override
     public void run() {
         while (!isInterrupted()) {
             try {
+                hall.enter(this);
+                sleep(Params.getMinglingTime());
+                hall.getTable().sit(this);
+                hall.getTable().stand(this);
+                sleep(Params.getMinglingTime());
+                hall.exit(this);
                 sleep(Params.getQuestingTime());
-                greatHall.enter(this);
-                sleep(Params.getMinglingTime());
-
-                sleep(Params.getMinglingTime());
-                greatHall.exit(this);
             } catch (InterruptedException e) {
             }
         }
@@ -37,14 +38,14 @@ public class Knight extends Thread {
 
     @Override
     public String toString() {
-        return "Knight " + this.id;
+        return "Knight " + id;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + this.id;
+        result = prime * result + id;
         return result;
     }
 
@@ -54,10 +55,10 @@ public class Knight extends Thread {
             return true;
         if (obj == null)
             return false;
-        if (this.getClass() != obj.getClass())
+        if (getClass() != obj.getClass())
             return false;
         Knight other = (Knight) obj;
-        if (this.id != other.id)
+        if (id != other.id)
             return false;
         return true;
     }
@@ -68,5 +69,6 @@ public class Knight extends Thread {
 
     public void setQuest(Quest quest) {
         this.quest = quest;
+        hall.getTable().notifyAll();
     }
 }

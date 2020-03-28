@@ -15,8 +15,8 @@ public class King extends Thread {
     public void run() {
         while (!isInterrupted()) {
             try {
-                sleep(Params.getKingWaitingTime());
                 greatHall.enter(this);
+                sleep(Params.getKingWaitingTime());
             } catch (InterruptedException e) {
             }
         }

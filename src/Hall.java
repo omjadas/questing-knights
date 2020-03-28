@@ -21,7 +21,7 @@ public class Hall {
     }
 
     public synchronized void enter(Knight knight) {
-        while (this.king == null) {
+        while (king == null) {
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -29,11 +29,11 @@ public class Hall {
         }
         knights.add(knight);
         System.out.println(
-            String.format("%s enters the %s.", knight.toString(), this.name));
+            String.format("%s enters the %s.", knight.toString(), name));
     }
 
     public synchronized void exit(Knight knight) {
-        while (this.king != null) {
+        while (king != null) {
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -41,30 +41,30 @@ public class Hall {
         }
         knights.remove(knight);
         System.out.println(
-            String.format("%s exits from %s.", knight.toString(), this.name));
+            String.format("%s exits from %s.", knight.toString(), name));
     }
 
-    public synchronized void enter(King kingArthur) {
-        this.king = kingArthur;
+    public synchronized void enter(King king) {
+        this.king = king;
         System.out.println(
             String.format(
                 "%s enters the %s.",
-                kingArthur.toString(),
-                this.name));
+                king.toString(),
+                name));
         notifyAll();
     }
 
-    public synchronized void exit(King kingArthur) {
+    public synchronized void exit(King king) {
         this.king = null;
         System.out.println(
             String.format(
                 "%s exits the %s.",
-                kingArthur.toString(),
-                this.name));
+                king.toString(),
+                name));
         notifyAll();
     }
 
     public Table getTable() {
-        return this.table;
+        return table;
     }
 }

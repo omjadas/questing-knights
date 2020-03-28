@@ -22,7 +22,7 @@ public class Agenda {
                     String.format(
                         "%s removed from %s",
                         quest.toString(),
-                        this.name));
+                        name));
                 return;
             }
         }
@@ -31,6 +31,6 @@ public class Agenda {
     public void addNew(Quest quest) {
         quests.add(quest);
         System.out.println(
-            String.format("%s added to %s", quest.toString(), this.name));
+            String.format("%s added to %s", quest.toString(), name));
     }
 }

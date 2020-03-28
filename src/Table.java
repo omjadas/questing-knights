@@ -14,12 +14,18 @@ public class Table {
     }
 
     public synchronized void sit(Knight knight) {
-        this.knights.add(knight);
+        knights.add(knight);
         System.out.println(
-            String.format("%s sits at the %s.", knight.toString(), this.name));
+            String.format("%s sits at the %s.", knight.toString(), name));
     }
 
     public synchronized void stand(Knight knight) {
-        this.knights.remove(knight);
+        while (knight.getQuest() == null) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+            }
+        }
+        knights.remove(knight);
     }
 }

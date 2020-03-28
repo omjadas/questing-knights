@@ -29,6 +29,6 @@ public class Quest {
     // produce an identifying string for the quest
     @Override
     public String toString() {
-        return "Quest " + this.id;
+        return "Quest " + id;
     }
 }
