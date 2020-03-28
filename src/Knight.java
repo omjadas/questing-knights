@@ -7,7 +7,7 @@ public class Knight extends Thread {
     private Agenda agendaNew;
     private Agenda agendaComplete;
     private Hall hall;
-    private Quest quest;
+    private volatile Quest quest;
 
     public Knight(int id, Agenda agendaNew, Agenda agendaComplete, Hall hall) {
         this.id = id;
@@ -35,6 +35,11 @@ public class Knight extends Thread {
                         quest.toString()));
                 sleep(Params.getQuestingTime());
                 quest.setCompleted();
+                System.out.println(
+                    String.format(
+                        "%s completes %s!",
+                        toString(),
+                        quest.toString()));
             } catch (InterruptedException e) {
             }
         }
@@ -72,13 +77,32 @@ public class Knight extends Thread {
     }
 
     private synchronized void releaseQuest() {
+        while (!hall.getMeetingInProgress()) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+            }
+        }
         if (quest != null) {
             agendaComplete.addNew(quest);
+            System.out.println(
+                String.format("%s releases %s.", toString(), quest.toString()));
         }
     }
 
     private synchronized void assignQuest() {
+        while (!hall.getMeetingInProgress()) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+            }
+        }
         quest = agendaNew.getQuest();
-        hall.getTable().myNotifyAll();
+        System.out.println(
+            String.format("%s acquires %s.", toString(), quest.toString()));
+    }
+
+    public synchronized void myNotifyAll() {
+        notifyAll();
     }
 }

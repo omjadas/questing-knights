@@ -9,9 +9,10 @@ public class Hall {
     private String name;
     private Agenda agendaNew;
     private Agenda agendaComplete;
-    private Set<Knight> knights = new HashSet<>();
+    private volatile Set<Knight> knights = new HashSet<>();
     private King king;
     private Table table;
+    private volatile boolean meetingInProgress = false;
 
     public Hall(String name, Agenda agendaNew, Agenda agendaComplete) {
         this.name = name;
@@ -42,9 +43,22 @@ public class Hall {
         knights.remove(knight);
         System.out.println(
             String.format("%s exits from %s.", knight.toString(), name));
+        notifyAll();
     }
 
     public synchronized void enter(King king) {
+        while (!knights.stream().allMatch(knight -> {
+            Quest quest = knight.getQuest();
+            if (quest != null) {
+                return quest.getCompleted() == true;
+            }
+            return true;
+        })) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+            }
+        }
         this.king = king;
         System.out.println(
             String.format("%s enters the %s.", king.toString(), name));
@@ -59,16 +73,25 @@ public class Hall {
     }
 
     public synchronized void sit(Knight knight) {
-        this.table.sit(knight);
+        table.sit(knight);
         notifyAll();
     }
 
-    public void stand(Knight knight) {
-        this.table.stand(knight);
+    public synchronized void stand(Knight knight) {
+        table.stand(knight);
+        notifyAll();
     }
 
     public Table getTable() {
         return table;
+    }
+
+    public King getKing() {
+        return king;
+    }
+
+    public boolean getMeetingInProgress() {
+        return meetingInProgress;
     }
 
     public synchronized void startMeeting() {
@@ -78,17 +101,19 @@ public class Hall {
             } catch (InterruptedException e) {
             }
         }
+        meetingInProgress = true;
         System.out.println("Meeting begins!");
+        knights.forEach(knight -> knight.myNotifyAll());
     }
 
     public synchronized void endMeeting() {
-        while (table.numSitting() > 0 &&
-            knights.stream().allMatch(knight -> knight.getQuest() != null)) {
+        while (table.numSitting() > 0) {
             try {
                 wait();
             } catch (InterruptedException e) {
             }
         }
+        meetingInProgress = false;
         System.out.println("Meeting ends!");
     }
 }
