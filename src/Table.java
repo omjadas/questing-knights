@@ -36,7 +36,7 @@ public class Table {
     public synchronized void stand(Knight knight) {
         knights.remove(knight);
         System.out.println(
-            String.format("%s stands from the %s", knight.toString(), name));
+            String.format("%s stands from the %s.", knight.toString(), name));
     }
 
     /**

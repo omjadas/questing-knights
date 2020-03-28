@@ -8,16 +8,16 @@ public class Hall {
     private String name;
     private Agenda agendaNew;
     private Agenda agendaComplete;
-    private volatile Set<Knight> knights = new HashSet<>();
-    private King king;
+    private Set<Knight> knights = new HashSet<>();
+    private volatile King king;
     private Table table;
     private volatile boolean meetingInProgress = false;
 
-    public Hall(String name, Agenda agendaNew, Agenda agendaComplete) {
+    public Hall(String name, Agenda agendaNew, Agenda agendaComplete, Table table) {
         this.name = name;
         this.agendaNew = agendaNew;
         this.agendaComplete = agendaComplete;
-        this.table = new Table("Round Table");
+        this.table = table;
     }
 
     /**

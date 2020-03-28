@@ -29,7 +29,7 @@ public class Producer extends Thread {
                 agenda.addNew(quest);
                 System.out.println(
                     String.format(
-                        "%s added to %s",
+                        "%s added to %s.",
                         quest.toString(),
                         agenda.getName()));
 

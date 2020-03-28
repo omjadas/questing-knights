@@ -1,9 +1,8 @@
 /**
  * The top-level component of the questing knights simulator.
  *
- * It is responsible for:
- *  - creating all the components of the system;
- *  - starting all of the processes;
+ * It is responsible for: - creating all the components of the system; -
+ * starting all of the processes;
  *
  * @author ngeard@unimelb.edu.au
  *
@@ -15,7 +14,12 @@ public class Main {
         // generate the hall and quest agendas
         Agenda agendaNew = new Agenda("New Agenda");
         Agenda agendaComplete = new Agenda("Complete Agenda");
-        Hall greatHall = new Hall("Great Hall", agendaNew, agendaComplete);
+        Table roundTable = new Table("Round Table");
+        Hall greatHall = new Hall(
+            "Great Hall",
+            agendaNew,
+            agendaComplete,
+            roundTable);
 
         // generate the producer, consumer and king arthur processes
         Producer producer = new Producer(agendaNew);
