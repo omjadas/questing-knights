@@ -4,7 +4,7 @@ import java.util.LinkedList;
  * @author Omja Das <835780>
  */
 public class Agenda {
-    private LinkedList<Quest> quests = new LinkedList<>();
+    private final LinkedList<Quest> quests = new LinkedList<>();
     private String name;
 
     /**
@@ -21,7 +21,7 @@ public class Agenda {
      *
      * @return list of completed quests in the Agenda
      */
-    public LinkedList<Quest> getCompletedQuests() {
+    public synchronized LinkedList<Quest> getCompletedQuests() {
         LinkedList<Quest> completedQuests = new LinkedList<>();
         for (Quest quest : quests) {
             if (quest.getCompleted()) {

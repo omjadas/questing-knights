@@ -8,7 +8,7 @@ public class Hall {
     private String name;
     private Agenda agendaNew;
     private Agenda agendaComplete;
-    private Set<Knight> knights = new HashSet<>();
+    private final Set<Knight> knights = new HashSet<>();
     private volatile King king;
     private Table table;
     private volatile boolean meetingInProgress = false;

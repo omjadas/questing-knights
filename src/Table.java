@@ -6,7 +6,7 @@ import java.util.Set;
  */
 public class Table {
     private String name;
-    private volatile Set<Knight> knights = new HashSet<>();
+    private final Set<Knight> knights = new HashSet<>();
 
     /**
      * Create a Table with the given name
