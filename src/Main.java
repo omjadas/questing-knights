@@ -27,9 +27,7 @@ public class Main {
 
         // generate and start the individual knight processes
         for (int i = 0; i < Params.NUM_KNIGHTS; i++) {
-            knights[i] = new Knight(
-                i + 1,
-                greatHall);
+            knights[i] = new Knight(i + 1, greatHall);
             knights[i].start();
         }
 

@@ -21,7 +21,10 @@ public class Consumer extends Thread {
             try {
                 // remove a quest that is complete
                 Quest quest = agenda.removeComplete();
-                String.format("%s removed from %s", quest.toString(), agenda.getName());
+                String.format(
+                    "%s removed from %s",
+                    quest.toString(),
+                    agenda.getName());
 
                 // let some time pass before the next quest is removed
                 sleep(Params.QUEST_REMOVAL_TIME);

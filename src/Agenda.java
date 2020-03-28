@@ -1,9 +1,8 @@
+import java.util.LinkedList;
+
 /**
  * @author Omja Das <835780>
  */
-
-import java.util.LinkedList;
-
 public class Agenda {
     private LinkedList<Quest> quests = new LinkedList<>();
     private String name;

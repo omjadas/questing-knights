@@ -1,7 +1,6 @@
 /**
  * @author Omja Das <835780>
  */
-
 public class King extends Thread {
     private String name;
     private Hall greatHall;

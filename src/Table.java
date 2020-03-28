@@ -1,10 +1,9 @@
-/**
- * @author Omja Das <835780>
- */
-
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * @author Omja Das <835780>
+ */
 public class Table {
     private String name;
     private volatile Set<Knight> knights = new HashSet<>();
