@@ -30,6 +30,7 @@ public class Agenda {
             }
         }
         Quest quest = getCompletedQuests().remove();
+        quests.remove(quest);
         notifyAll();
         return quest;
     }

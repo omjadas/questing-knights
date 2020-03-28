@@ -1,9 +1,9 @@
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * @author Omja Das <835780>
  */
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class Hall {
     private String name;
@@ -90,10 +90,6 @@ public class Hall {
         return king;
     }
 
-    public boolean getMeetingInProgress() {
-        return meetingInProgress;
-    }
-
     public synchronized void startMeeting() {
         while (table.numSitting() < knights.size()) {
             try {
@@ -103,7 +99,21 @@ public class Hall {
         }
         meetingInProgress = true;
         System.out.println("Meeting begins!");
-        knights.forEach(knight -> knight.myNotifyAll());
+        notifyAll();
+    }
+
+    public synchronized void meeting(Knight knight) {
+        while (!meetingInProgress) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+            }
+        }
+        Quest releasedQuest = knight.releaseQuest();
+        if (releasedQuest != null) {
+            agendaComplete.addNew(releasedQuest);
+        }
+        knight.acquireQuest(agendaNew.getQuest());
     }
 
     public synchronized void endMeeting() {

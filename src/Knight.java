@@ -4,15 +4,11 @@
 
 public class Knight extends Thread {
     private int id;
-    private Agenda agendaNew;
-    private Agenda agendaComplete;
     private Hall hall;
     private volatile Quest quest;
 
-    public Knight(int id, Agenda agendaNew, Agenda agendaComplete, Hall hall) {
+    public Knight(int id, Hall hall) {
         this.id = id;
-        this.agendaNew = agendaNew;
-        this.agendaComplete = agendaComplete;
         this.hall = hall;
     }
 
@@ -23,8 +19,7 @@ public class Knight extends Thread {
                 hall.enter(this);
                 sleep(Params.getMinglingTime());
                 hall.sit(this);
-                releaseQuest();
-                acquireQuest();
+                hall.meeting(this);
                 hall.stand(this);
                 sleep(Params.getMinglingTime());
                 hall.exit(this);
@@ -76,33 +71,17 @@ public class Knight extends Thread {
         return quest;
     }
 
-    private synchronized void releaseQuest() {
-        while (!hall.getMeetingInProgress()) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-            }
-        }
+    public Quest releaseQuest() {
         if (quest != null) {
-            agendaComplete.addNew(quest);
             System.out.println(
                 String.format("%s releases %s.", toString(), quest.toString()));
         }
+        return quest;
     }
 
-    private synchronized void acquireQuest() {
-        while (!hall.getMeetingInProgress()) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-            }
-        }
-        quest = agendaNew.getQuest();
+    public void acquireQuest(Quest quest) {
+        this.quest = quest;
         System.out.println(
             String.format("%s acquires %s.", toString(), quest.toString()));
-    }
-
-    public synchronized void myNotifyAll() {
-        notifyAll();
     }
 }
