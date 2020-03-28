@@ -2,34 +2,63 @@
  * @author Omja Das <835780>
  */
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Agenda {
-    private ArrayList<Quest> quests = new ArrayList<>();
+    private LinkedList<Quest> quests = new LinkedList<>();
     private String name;
 
     public Agenda(String name) {
         this.name = name;
     }
 
-    public void removeComplete() {
-        for (int i = 0; i < quests.size(); i++) {
-            Quest quest = quests.get(i);
-            if (quest.completed) {
-                quests.remove(i);
-                System.out.println(
-                    String.format(
-                        "%s removed from %s",
-                        quest.toString(),
-                        this.name));
-                return;
+    public LinkedList<Quest> getCompletedQuests() {
+        LinkedList<Quest> completedQuests = new LinkedList<>();
+        for (Quest quest : quests) {
+            if (quest.getCompleted()) {
+                completedQuests.add(quest);
             }
         }
+        return completedQuests;
     }
 
-    public void addNew(Quest quest) {
+    public synchronized Quest removeComplete() {
+        while (getCompletedQuests().size() == 0) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+            }
+        }
+        Quest quest = getCompletedQuests().remove();
+        notifyAll();
+        return quest;
+    }
+
+    public synchronized void addNew(Quest quest) {
+        while (quests.size() >= Params.AGENDA_SIZE) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+            }
+        }
         quests.add(quest);
-        System.out.println(
-            String.format("%s added to %s", quest.toString(), this.name));
+        notifyAll();
+    }
+
+    public synchronized Quest getQuest() {
+        while (quests.size() == 0) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+            }
+        }
+        Quest quest = quests.get(0);
+        quests.remove(0);
+        notifyAll();
+        return quest;
+    }
+
+    public String getName() {
+        return name;
     }
 }

@@ -20,7 +20,7 @@ public class Main {
         // generate the producer, consumer and king arthur processes
         Producer producer = new Producer(agendaNew);
         Consumer consumer = new Consumer(agendaComplete);
-        KingArthur kingArthur = new KingArthur(greatHall);
+        King kingArthur = new King("King Arthur", greatHall);
 
         // create an array of knights
         Knight[] knights = new Knight[Params.NUM_KNIGHTS];
@@ -28,10 +28,10 @@ public class Main {
         // generate and start the individual knight processes
         for (int i = 0; i < Params.NUM_KNIGHTS; i++) {
             knights[i] = new Knight(
-                    i + 1,
-                    agendaNew,
-                    agendaComplete,
-                    greatHall);
+                i + 1,
+                agendaNew,
+                agendaComplete,
+                greatHall);
             knights[i].start();
         }
 

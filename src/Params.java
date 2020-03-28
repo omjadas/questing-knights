@@ -29,6 +29,8 @@ class Params {
     // duration between completed quests being removed
     static final int QUEST_REMOVAL_TIME = 20;
 
+    static final int AGENDA_SIZE = 1;
+
     // generate a random mingling duration
     static int getMinglingTime() {
         return (int) Math.max(
