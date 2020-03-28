@@ -82,7 +82,8 @@ public class Hall {
     }
 
     public synchronized void endMeeting() {
-        while (table.numSitting() > 0) {
+        while (table.numSitting() > 0 &&
+            knights.stream().allMatch(knight -> knight.getQuest() != null)) {
             try {
                 wait();
             } catch (InterruptedException e) {

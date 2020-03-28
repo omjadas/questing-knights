@@ -29,6 +29,10 @@ public class Table {
         knights.remove(knight);
     }
 
+    public synchronized void myNotifyAll() {
+        notifyAll();
+    }
+
     public synchronized int numSitting() {
         return knights.size();
     }

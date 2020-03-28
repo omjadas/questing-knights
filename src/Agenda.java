@@ -32,6 +32,7 @@ public class Agenda {
         }
         Quest quest = getCompletedQuests().get(0);
         quests.remove(quest);
+        notifyAll();
         return quest;
     }
 
@@ -44,6 +45,19 @@ public class Agenda {
         }
         quests.add(quest);
         notifyAll();
+    }
+
+    public synchronized Quest getQuest() {
+        while (quests.size() == 0) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+            }
+        }
+        Quest quest = quests.get(0);
+        quests.remove(0);
+        notifyAll();
+        return quest;
     }
 
     public String getName() {

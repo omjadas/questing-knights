@@ -9,11 +9,7 @@ public class Knight extends Thread {
     private Hall hall;
     private Quest quest;
 
-    public Knight(
-            int id,
-            Agenda agendaNew,
-            Agenda agendaComplete,
-            Hall hall) {
+    public Knight(int id, Agenda agendaNew, Agenda agendaComplete, Hall hall) {
         this.id = id;
         this.agendaNew = agendaNew;
         this.agendaComplete = agendaComplete;
@@ -27,13 +23,18 @@ public class Knight extends Thread {
                 hall.enter(this);
                 sleep(Params.getMinglingTime());
                 hall.sit(this);
-                if (quest != null) {
-                    agendaComplete.addNew(quest);
-                }
+                releaseQuest();
+                assignQuest();
                 hall.stand(this);
                 sleep(Params.getMinglingTime());
                 hall.exit(this);
+                System.out.println(
+                    String.format(
+                        "%s sets off to complete %s!",
+                        toString(),
+                        quest.toString()));
                 sleep(Params.getQuestingTime());
+                quest.setCompleted();
             } catch (InterruptedException e) {
             }
         }
@@ -70,8 +71,14 @@ public class Knight extends Thread {
         return quest;
     }
 
-    public void setQuest(Quest quest) {
-        this.quest = quest;
-        hall.getTable().notifyAll();
+    private synchronized void releaseQuest() {
+        if (quest != null) {
+            agendaComplete.addNew(quest);
+        }
+    }
+
+    private synchronized void assignQuest() {
+        quest = agendaNew.getQuest();
+        hall.getTable().myNotifyAll();
     }
 }
