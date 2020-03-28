@@ -24,7 +24,7 @@ public class Knight extends Thread {
                 sleep(Params.getMinglingTime());
                 hall.sit(this);
                 releaseQuest();
-                assignQuest();
+                acquireQuest();
                 hall.stand(this);
                 sleep(Params.getMinglingTime());
                 hall.exit(this);
@@ -90,7 +90,7 @@ public class Knight extends Thread {
         }
     }
 
-    private synchronized void assignQuest() {
+    private synchronized void acquireQuest() {
         while (!hall.getMeetingInProgress()) {
             try {
                 wait();

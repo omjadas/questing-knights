@@ -2,19 +2,18 @@
  * @author Omja Das <835780>
  */
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 public class Agenda {
-    private List<Quest> quests = new ArrayList<>();
+    private LinkedList<Quest> quests = new LinkedList<>();
     private String name;
 
     public Agenda(String name) {
         this.name = name;
     }
 
-    public List<Quest> getCompletedQuests() {
-        List<Quest> completedQuests = new ArrayList<>();
+    public LinkedList<Quest> getCompletedQuests() {
+        LinkedList<Quest> completedQuests = new LinkedList<>();
         for (Quest quest : quests) {
             if (quest.getCompleted()) {
                 completedQuests.add(quest);
@@ -30,8 +29,7 @@ public class Agenda {
             } catch (InterruptedException e) {
             }
         }
-        Quest quest = getCompletedQuests().get(0);
-        quests.remove(quest);
+        Quest quest = getCompletedQuests().remove();
         notifyAll();
         return quest;
     }
