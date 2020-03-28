@@ -5,12 +5,12 @@ import java.util.Set;
  * @author Omja Das <835780>
  */
 public class Hall {
-    private String name;
-    private Agenda agendaNew;
-    private Agenda agendaComplete;
+    private final String name;
+    private final Agenda agendaNew;
+    private final Agenda agendaComplete;
     private final Set<Knight> knights = new HashSet<>();
+    private final Table table;
     private volatile King king;
-    private Table table;
     private volatile boolean meetingInProgress = false;
 
     public Hall(String name, Agenda agendaNew, Agenda agendaComplete, Table table) {

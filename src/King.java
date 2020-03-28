@@ -2,8 +2,8 @@
  * @author Omja Das <835780>
  */
 public class King extends Thread {
-    private String name;
-    private Hall hall;
+    private final String name;
+    private final Hall hall;
 
     /**
      * Create a King with a given name and hall

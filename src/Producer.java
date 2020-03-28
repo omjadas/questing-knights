@@ -6,7 +6,7 @@
  */
 
 public class Producer extends Thread {
-    private Agenda agenda;
+    private final Agenda agenda;
 
     /**
      * Create a new Producer

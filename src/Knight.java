@@ -2,8 +2,8 @@
  * @author Omja Das <835780>
  */
 public class Knight extends Thread {
-    private int id;
-    private Hall hall;
+    private final int id;
+    private final Hall hall;
     private volatile Quest quest;
 
     /**

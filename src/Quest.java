@@ -7,13 +7,13 @@
 
 public class Quest {
     // a unique identifier for this quest
-    private int id;
+    private final int id;
 
     // the next ID to be allocated
     private static int nextId = 1;
 
     // a flag indicating whether the quest has been completed
-    private boolean completed;
+    private boolean completed = false;
 
     /**
      * Create a new vessel with a given identifier
@@ -22,7 +22,6 @@ public class Quest {
      */
     private Quest(int id) {
         this.id = id;
-        this.completed = false;
     }
 
     /**

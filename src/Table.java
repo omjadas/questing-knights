@@ -5,7 +5,7 @@ import java.util.Set;
  * @author Omja Das <835780>
  */
 public class Table {
-    private String name;
+    private final String name;
     private final Set<Knight> knights = new HashSet<>();
 
     /**

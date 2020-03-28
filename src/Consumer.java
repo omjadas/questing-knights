@@ -7,7 +7,7 @@
 
 public class Consumer extends Thread {
     // the agenda from which completed quests are removed
-    private Agenda agenda;
+    private final Agenda agenda;
 
     /**
      * Creates a new consumer for the given agenda

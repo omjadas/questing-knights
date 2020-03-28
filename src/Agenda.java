@@ -5,7 +5,7 @@ import java.util.LinkedList;
  */
 public class Agenda {
     private final LinkedList<Quest> quests = new LinkedList<>();
-    private String name;
+    private final String name;
 
     /**
      * Create an Agenda with a given name
