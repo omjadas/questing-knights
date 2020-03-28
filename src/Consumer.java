@@ -15,6 +15,7 @@ public class Consumer extends Thread {
     }
 
     // repeatedly collect completed quests from the agenda
+    @Override
     public void run() {
         while (!isInterrupted()) {
             try {
