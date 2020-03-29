@@ -1,10 +1,8 @@
 /**
- * A quest, with a unique id, to be assigned to a knight for completion
+ * A Quest, with a unique ID, to be assigned to a {@link Knight} for completion.
  * 
  * @author ngeard@unimelb.edu.au
- *
  */
-
 public class Quest {
     /**
      * A unique identifier for this quest

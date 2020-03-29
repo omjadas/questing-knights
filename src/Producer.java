@@ -1,10 +1,8 @@
 /**
- * Produces new quests for the knights to complete.
+ * Produces new {@link Quest}s for the {@link Knight}s to complete.
  *
  * @author ngeard@unimelb.edu.au
- *
  */
-
 public class Producer extends Thread {
     /**
      * The Agenda the Producer creates Quests for

@@ -2,6 +2,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * A Hall is where meetings take place, {@link Knight}s and {@link King}s can
+ * enter and exit the Hall. A Hall contains a {@link Table} where
+ * {@link Knight}s sit during meetings.
+ *
  * @author Omja Das <835780>
  */
 public class Hall {
@@ -11,27 +15,27 @@ public class Hall {
     private final String name;
 
     /**
-     * Agenda containing new Quests
+     * Agenda containing new {@link Quest}s
      */
     private final Agenda agendaNew;
 
     /**
-     * Agenda containing completed Quests
+     * Agenda containing completed {@link Quest}s
      */
     private final Agenda agendaComplete;
 
     /**
-     * Knights present in the Hall
+     * {@link Knight}s present in the Hall
      */
     private final Set<Knight> knights = new HashSet<>();
 
     /**
-     * Table that the Hall contains
+     * {@link Table} that the Hall contains
      */
     private final Table table;
 
     /**
-     * King of the Hall, null if the King is not present
+     * {@link King} of the Hall, null if the {@link King} is not present
      */
     private volatile King king;
 
@@ -41,13 +45,13 @@ public class Hall {
     private volatile boolean meetingInProgress = false;
 
     /**
-     * Create a Hall with a given name, Agenda for new Quests, Agenda for
-     * completed Quests, and a Table
+     * Create a Hall with a given name, {@link Agenda} for new {@link Quest}s,
+     * {@link Agenda} for completed {@link Quest}s, and a {@link Table}
      *
      * @param name           name of the Hall
-     * @param agendaNew      Agenda containing new Quests
-     * @param agendaComplete Agenda containing completed Quests
-     * @param table          Table in the Hall
+     * @param agendaNew      {@link Agenda} containing new {@link Quest}s
+     * @param agendaComplete {@link Agenda} containing completed {@link Quest}s
+     * @param table          {@link Table} in the Hall
      */
     public Hall(
             String name,
@@ -61,9 +65,9 @@ public class Hall {
     }
 
     /**
-     * Called when a knight enters the hall
+     * Called when a {@link Knight} enters the Hall
      *
-     * @param knight the knight entering the hall
+     * @param knight the {@link Knight} entering the Hall
      */
     public synchronized void enter(Knight knight) {
         // Wait until the King is not present
@@ -78,9 +82,9 @@ public class Hall {
     }
 
     /**
-     * Called when a knight exits the hall
+     * Called when a {@link Knight} exits the Hall
      *
-     * @param knight the knight exiting the hall
+     * @param knight the {@link Knight} exiting the Hall
      */
     public synchronized void exit(Knight knight) {
         // Wait until the King is not present
@@ -96,9 +100,9 @@ public class Hall {
     }
 
     /**
-     * Called when the king enters the hall
+     * Called when the {@link King} enters the Hall
      *
-     * @param king the king entering the hall
+     * @param king the {@link King} entering the Hall
      */
     public synchronized void enter(King king) {
         // Wait until all Knights from previous meeting have left
@@ -120,9 +124,9 @@ public class Hall {
     }
 
     /**
-     * Called when the king exits the hall
+     * Called when the {@link King} exits the Hall
      *
-     * @param king the king exiting the hall
+     * @param king the {@link King} exiting the Hall
      */
     public synchronized void exit(King king) {
         this.king = null;
@@ -132,9 +136,9 @@ public class Hall {
     }
 
     /**
-     * Called when a knight sits down
+     * Called when a {@link Knight} sits down
      *
-     * @param knight the knight sitting down
+     * @param knight the {@link Knight} sitting down
      */
     public synchronized void sit(Knight knight) {
         table.sit(knight);
@@ -142,9 +146,9 @@ public class Hall {
     }
 
     /**
-     * Called when a knight stands up
+     * Called when a {@link Knight} stands up
      *
-     * @param knight the knight standing up
+     * @param knight the {@link Knight} standing up
      */
     public synchronized void stand(Knight knight) {
         table.stand(knight);
@@ -167,9 +171,9 @@ public class Hall {
     }
 
     /**
-     * Perform the actions required of a knight during a meeting
+     * Perform the actions required of a {@link Knight} during a meeting
      *
-     * @param knight knight to perform actions
+     * @param knight {@link Knight} to perform actions
      */
     public synchronized void meeting(Knight knight) {
         // Wait until the meeting is in progress

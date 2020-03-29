@@ -1,13 +1,12 @@
 /**
  * The top-level component of the questing knights simulator.
  *
- * It is responsible for: - creating all the components of the system; -
- * starting all of the processes;
+ * It is responsible for:
+ * - creating all the components of the system;
+ * - starting all of the processes;
  *
  * @author ngeard@unimelb.edu.au
- *
  */
-
 public class Main {
     public static void main(String[] args) throws InterruptedException {
 

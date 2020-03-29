@@ -1,13 +1,11 @@
+import java.util.Random;
+import java.lang.Math;
+
 /**
  * Parameters for the questing knights simulator.
  *
  * @author ngeard@unimelb.edu.au
- *
  */
-
-import java.util.Random;
-import java.lang.Math;
-
 class Params {
     static Random rnd = new Random();
 

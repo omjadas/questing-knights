@@ -2,6 +2,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * A Table is where {@link Knight}s sit during meetings.
+ *
  * @author Omja Das <835780>
  */
 public class Table {

@@ -1,4 +1,6 @@
 /**
+ * A King presides over the {@link Hall} and runs the meetings.
+ *
  * @author Omja Das <835780>
  */
 public class King extends Thread {
@@ -8,15 +10,15 @@ public class King extends Thread {
     private final String name;
 
     /**
-     * Hall that the King belongs to
+     * {@link Hall} that the King belongs to
      */
     private final Hall hall;
 
     /**
-     * Create a King with a given name and hall
+     * Create a King with a given name and {@link Hall}
      *
      * @param name name of the King
-     * @param hall hall of the King
+     * @param hall {@link Hall} of the King
      */
     public King(String name, Hall hall) {
         this.name = name;

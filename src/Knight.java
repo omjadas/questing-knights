@@ -1,4 +1,6 @@
 /**
+ * A Knight obtains {@link Quest}s from the {@link King} during meetings.
+ *
  * @author Omja Das <835780>
  */
 public class Knight extends Thread {

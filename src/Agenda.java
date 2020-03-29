@@ -1,11 +1,14 @@
 import java.util.LinkedList;
 
 /**
+ * An Agenda is a container for {@link Quest}s, the max number of {@link Quest}s
+ * an Agenda can contain is defined at {@link Params#AGENDA_SIZE}.
+ *
  * @author Omja Das <835780>
  */
 public class Agenda {
     /**
-     * Quests contained within the Agenda
+     * {@link Quest}s contained within the Agenda
      */
     private final LinkedList<Quest> quests = new LinkedList<>();
 
@@ -24,9 +27,9 @@ public class Agenda {
     }
 
     /**
-     * Returns a list of completed quests in the Agenda
+     * Returns a list of completed {@link Quest}s in the Agenda
      *
-     * @return list of completed quests in the Agenda
+     * @return list of completed {@link Quest}s in the Agenda
      */
     public synchronized LinkedList<Quest> getCompletedQuests() {
         LinkedList<Quest> completedQuests = new LinkedList<>();
@@ -39,9 +42,9 @@ public class Agenda {
     }
 
     /**
-     * Removes a single completed test from the Agenda
+     * Removes a single completed {@link Quest} from the Agenda
      *
-     * @return quest that has been removed
+     * @return {@link Quest} that has been removed
      */
     public synchronized Quest removeComplete() {
         // Wait until the agenda contains Quests
@@ -57,9 +60,9 @@ public class Agenda {
     }
 
     /**
-     * Adds a new quest to the Agenda
+     * Adds a new {@link Quest} to the Agenda
      *
-     * @param quest quest to add to the Agenda
+     * @param quest {@link Quest} to add to the Agenda
      */
     public synchronized void addNew(Quest quest) {
         // Wait while the Agenda contains too many Quests
@@ -73,9 +76,9 @@ public class Agenda {
     }
 
     /**
-     * Retrieves a single quest from the Agenda
+     * Retrieves a single {@link Quest} from the Agenda
      *
-     * @return a quest
+     * @return a {@link Quest}
      */
     public synchronized Quest getQuest() {
         // Wait while the Agenda does not contain any Quests
