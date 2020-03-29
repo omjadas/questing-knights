@@ -2,7 +2,14 @@
  * @author Omja Das <835780>
  */
 public class King extends Thread {
+    /**
+     * Name of the King
+     */
     private final String name;
+
+    /**
+     * Hall that the King belongs to
+     */
     private final Hall hall;
 
     /**

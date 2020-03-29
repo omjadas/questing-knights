@@ -4,7 +4,14 @@ import java.util.LinkedList;
  * @author Omja Das <835780>
  */
 public class Agenda {
+    /**
+     * Quests contained within the Agenda
+     */
     private final LinkedList<Quest> quests = new LinkedList<>();
+
+    /**
+     * Name of the Agenda
+     */
     private final String name;
 
     /**

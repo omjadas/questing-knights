@@ -6,6 +6,9 @@
  */
 
 public class Producer extends Thread {
+    /**
+     * The Agenda the Producer creates Quests for
+     */
     private final Agenda agenda;
 
     /**

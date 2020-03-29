@@ -11,24 +11,39 @@ import java.lang.Math;
 class Params {
     static Random rnd = new Random();
 
-    // number of knights in the simulator
+    /**
+     * Number of Knights in the simulator
+     */
     static final int NUM_KNIGHTS = 4;
 
-    // average duration that knights spend mingling before and after meetings
+    /**
+     * Average duration that Knights spend mingling before and after meetings
+     */
     static final int MEAN_MINGLING_TIME = 200;
 
-    // average duration that knights spend completing a quest
+    /**
+     * Average duration that Knights spend completing a quest
+     */
     static final int MEAN_QUESTING_TIME = 1200;
 
-    // average interval between King Arthur leaving and re-entering the Hall
+    /**
+     * Average interval between the King leaving and re-entering the Hall
+     */
     static final int MEAN_KING_WAITING_TIME = 800;
 
-    // duration between new quests being added
+    /**
+     * Duration between new Quests being added
+     */
     static final int QUEST_ADDITION_TIME = 20;
 
-    // duration between completed quests being removed
+    /**
+     * Duration between completed Quests being removed
+     */
     static final int QUEST_REMOVAL_TIME = 20;
 
+    /**
+     * The number of Quests an Agenda can contain
+     */
     static final int AGENDA_SIZE = 1;
 
     /**

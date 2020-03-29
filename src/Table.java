@@ -5,7 +5,14 @@ import java.util.Set;
  * @author Omja Das <835780>
  */
 public class Table {
+    /**
+     * Name of the Table
+     */
     private final String name;
+
+    /**
+     * Knights that are sitting at the Table
+     */
     private final Set<Knight> knights = new HashSet<>();
 
     /**

@@ -5,15 +5,55 @@ import java.util.Set;
  * @author Omja Das <835780>
  */
 public class Hall {
+    /**
+     * Name of the Hall
+     */
     private final String name;
+
+    /**
+     * Agenda containing new Quests
+     */
     private final Agenda agendaNew;
+
+    /**
+     * Agenda containing completed Quests
+     */
     private final Agenda agendaComplete;
+
+    /**
+     * Knights present in the Hall
+     */
     private final Set<Knight> knights = new HashSet<>();
+
+    /**
+     * Table that the Hall contains
+     */
     private final Table table;
+
+    /**
+     * King of the Hall
+     */
     private volatile King king;
+
+    /**
+     * True if a meeting is in progress, false otherwise
+     */
     private volatile boolean meetingInProgress = false;
 
-    public Hall(String name, Agenda agendaNew, Agenda agendaComplete, Table table) {
+    /**
+     * Create a Hall with a given name, Agenda for new Quests, Agenda for
+     * completed Quests, and a Table
+     *
+     * @param name           name of the Hall
+     * @param agendaNew      Agenda containing new Quests
+     * @param agendaComplete Agenda containing completed Quests
+     * @param table          Table in the Hall
+     */
+    public Hall(
+            String name,
+            Agenda agendaNew,
+            Agenda agendaComplete,
+            Table table) {
         this.name = name;
         this.agendaNew = agendaNew;
         this.agendaComplete = agendaComplete;

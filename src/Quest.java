@@ -6,13 +6,19 @@
  */
 
 public class Quest {
-    // a unique identifier for this quest
+    /**
+     * A unique identifier for this quest
+     */
     private final int id;
 
-    // the next ID to be allocated
+    /**
+     * The next ID to be allocated
+     */
     private static int nextId = 1;
 
-    // a flag indicating whether the quest has been completed
+    /**
+     * A flag indicating whether the quest has been completed
+     */
     private boolean completed = false;
 
     /**

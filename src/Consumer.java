@@ -6,7 +6,9 @@
  */
 
 public class Consumer extends Thread {
-    // the agenda from which completed quests are removed
+    /**
+     * The agenda from which completed quests are removed
+     */
     private final Agenda agenda;
 
     /**

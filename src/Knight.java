@@ -2,14 +2,25 @@
  * @author Omja Das <835780>
  */
 public class Knight extends Thread {
+    /**
+     * Numeric ID of the Knight
+     */
     private final int id;
+
+    /**
+     * Hall that the Knight reports to
+     */
     private final Hall hall;
+
+    /**
+     * The Knight's current Quest
+     */
     private volatile Quest quest;
 
     /**
      * Create a Knight with a given id and hall
      *
-     * @param id id of the Knight
+     * @param id   id of the Knight
      * @param hall hall of the Knight
      */
     public Knight(int id, Hall hall) {
