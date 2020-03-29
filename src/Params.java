@@ -1,51 +1,78 @@
-/**
- * Parameters for the questing knights simulator.
- *
- * @author ngeard@unimelb.edu.au
- *
- */
-
 import java.util.Random;
 import java.lang.Math;
 
+/**
+ * Parameters for the questing knights simulator.
+ *
+ * @author Omja Das <835780>
+ */
 class Params {
     static Random rnd = new Random();
 
-    // number of knights in the simulator
+    /**
+     * Number of {@link Knight}s in the simulator
+     */
     static final int NUM_KNIGHTS = 4;
 
-    // average duration that knights spend mingling before and after meetings
+    /**
+     * Average duration that {@link Knight}s spend mingling before and after
+     * meetings
+     */
     static final int MEAN_MINGLING_TIME = 200;
 
-    // average duration that knights spend completing a quest
+    /**
+     * Average duration that {@link Knight}s spend completing a {@link Quest}
+     */
     static final int MEAN_QUESTING_TIME = 1200;
 
-    // average interval between King Arthur leaving and re-entering the Hall
+    /**
+     * Average interval between the {@link King} leaving and re-entering the
+     * {@link Hall}
+     */
     static final int MEAN_KING_WAITING_TIME = 800;
 
-    // duration between new quests being added
+    /**
+     * Duration between new {@link Quest}s being added
+     */
     static final int QUEST_ADDITION_TIME = 20;
 
-    // duration between completed quests being removed
+    /**
+     * Duration between completed {@link Quest}s being removed
+     */
     static final int QUEST_REMOVAL_TIME = 20;
 
+    /**
+     * The number of {@link Quest}s an {@link Agenda} can contain
+     */
     static final int AGENDA_SIZE = 1;
 
-    // generate a random mingling duration
+    /**
+     * Generate a random mingling duration
+     *
+     * @return random mingling duration
+     */
     static int getMinglingTime() {
         return (int) Math.max(
             0.0,
             rnd.nextGaussian() * MEAN_MINGLING_TIME / 6 + MEAN_MINGLING_TIME);
     }
 
-    // generate a random questing duration
+    /**
+     * Generate a random questing duration
+     *
+     * @return random questing duration
+     */
     static int getQuestingTime() {
         return (int) Math.max(
             0.0,
             rnd.nextGaussian() * MEAN_QUESTING_TIME / 6 + MEAN_QUESTING_TIME);
     }
 
-    // generate a random interval for King Arthur to be away
+    /**
+     * Generate a random interval for the {@link King} to be away
+     *
+     * @return random interval for the {@link King} to be away
+     */
     static int getKingWaitingTime() {
         return (int) Math.max(
             0.0,

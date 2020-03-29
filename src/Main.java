@@ -2,34 +2,41 @@
  * The top-level component of the questing knights simulator.
  *
  * It is responsible for:
- *  - creating all the components of the system;
- *  - starting all of the processes;
+ * - creating all the components of the system;
+ * - starting all of the processes;
  *
- * @author ngeard@unimelb.edu.au
- *
+ * @author Omja Das <835780>
  */
-
 public class Main {
+    /**
+     * Run the simulation
+     * 
+     * @param args
+     * @throws InterruptedException
+     */
     public static void main(String[] args) throws InterruptedException {
 
-        // generate the hall and quest agendas
+        // generate the Hall and Agendas
         Agenda agendaNew = new Agenda("New Agenda");
         Agenda agendaComplete = new Agenda("Complete Agenda");
-        Hall greatHall = new Hall("Great Hall", agendaNew, agendaComplete);
+        Table roundTable = new Table("Round Table");
+        Hall greatHall = new Hall(
+            "Great Hall",
+            agendaNew,
+            agendaComplete,
+            roundTable);
 
-        // generate the producer, consumer and king arthur processes
+        // generate the Producer, Consumer and King processes
         Producer producer = new Producer(agendaNew);
         Consumer consumer = new Consumer(agendaComplete);
         King kingArthur = new King("King Arthur", greatHall);
 
-        // create an array of knights
+        // create an array of Knights
         Knight[] knights = new Knight[Params.NUM_KNIGHTS];
 
-        // generate and start the individual knight processes
+        // generate and start the individual Knight processes
         for (int i = 0; i < Params.NUM_KNIGHTS; i++) {
-            knights[i] = new Knight(
-                i + 1,
-                greatHall);
+            knights[i] = new Knight(i + 1, greatHall);
             knights[i].start();
         }
 
