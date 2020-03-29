@@ -13,7 +13,7 @@ public class Table {
     private final String name;
 
     /**
-     * Knights that are sitting at the Table
+     * {@link Knight}s that are sitting at the Table
      */
     private final Set<Knight> knights = new HashSet<>();
 
@@ -27,9 +27,9 @@ public class Table {
     }
 
     /**
-     * Called when a knight sits down
+     * Called when a {@link Knight} sits down
      *
-     * @param knight knight sitting down
+     * @param knight {@link Knight} sitting down
      */
     public synchronized void sit(Knight knight) {
         knights.add(knight);
@@ -38,9 +38,9 @@ public class Table {
     }
 
     /**
-     * Called when a knight stands up
+     * Called when a {@link Knight} stands up
      * 
-     * @param knight knight standing up
+     * @param knight {@link Knight} standing up
      */
     public synchronized void stand(Knight knight) {
         knights.remove(knight);
@@ -49,9 +49,9 @@ public class Table {
     }
 
     /**
-     * Returns the number of knights sitting at the table
+     * Returns the number of {@link Knight}s sitting at the table
      * 
-     * @return number of knights sitting at the table
+     * @return number of {@link Knight}s sitting at the table
      */
     public synchronized int numSitting() {
         return knights.size();

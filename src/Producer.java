@@ -5,21 +5,21 @@
  */
 public class Producer extends Thread {
     /**
-     * The Agenda the Producer creates Quests for
+     * The Agenda the Producer creates {@link Quest}s for
      */
     private final Agenda agenda;
 
     /**
      * Create a new Producer
      *
-     * @param agenda agenda to produce the quests for
+     * @param agenda agenda to produce the {@link Quest}s for
      */
     Producer(Agenda agenda) {
         this.agenda = agenda;
     }
 
     /**
-     * Quests
+     * Create {@link Quest}s and add them to {@link #agenda}
      */
     @Override
     public void run() {

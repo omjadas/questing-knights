@@ -10,37 +10,39 @@ class Params {
     static Random rnd = new Random();
 
     /**
-     * Number of Knights in the simulator
+     * Number of {@link Knight}s in the simulator
      */
     static final int NUM_KNIGHTS = 4;
 
     /**
-     * Average duration that Knights spend mingling before and after meetings
+     * Average duration that {@link Knight}s spend mingling before and after
+     * meetings
      */
     static final int MEAN_MINGLING_TIME = 200;
 
     /**
-     * Average duration that Knights spend completing a quest
+     * Average duration that {@link Knight}s spend completing a quest
      */
     static final int MEAN_QUESTING_TIME = 1200;
 
     /**
-     * Average interval between the King leaving and re-entering the Hall
+     * Average interval between the {@link King} leaving and re-entering the
+     * {@link Hall}
      */
     static final int MEAN_KING_WAITING_TIME = 800;
 
     /**
-     * Duration between new Quests being added
+     * Duration between new {@link Quest}s being added
      */
     static final int QUEST_ADDITION_TIME = 20;
 
     /**
-     * Duration between completed Quests being removed
+     * Duration between completed {@link Quest}s being removed
      */
     static final int QUEST_REMOVAL_TIME = 20;
 
     /**
-     * The number of Quests an Agenda can contain
+     * The number of {@link Quest}s an {@link Agenda} can contain
      */
     static final int AGENDA_SIZE = 1;
 
@@ -67,9 +69,9 @@ class Params {
     }
 
     /**
-     * Generate a random interval for King Arthur to be away
+     * Generate a random interval for the {@link King} to be away
      *
-     * @return random interval for King Arthur to be away
+     * @return random interval for the {@link King} to be away
      */
     static int getKingWaitingTime() {
         return (int) Math.max(

@@ -10,20 +10,20 @@ public class Knight extends Thread {
     private final int id;
 
     /**
-     * Hall that the Knight reports to
+     * {@link Hall} that the Knight reports to
      */
     private final Hall hall;
 
     /**
-     * The Knight's current Quest
+     * The Knight's current {@link Quest}
      */
     private volatile Quest quest;
 
     /**
-     * Create a Knight with a given id and hall
+     * Create a Knight with a given id and {@link Hall}
      *
      * @param id   id of the Knight
-     * @param hall hall of the Knight
+     * @param hall {@link Hall} of the Knight
      */
     public Knight(int id, Hall hall) {
         this.id = id;
@@ -104,18 +104,18 @@ public class Knight extends Thread {
     }
 
     /**
-     * Retrieve the knight's current quest
+     * Retrieve the Knight's current {@link Quest}
      *
-     * @return the current quest assigned to the knight
+     * @return the current {@link Quest} assigned to the {@link Knight}
      */
     public Quest getQuest() {
         return quest;
     }
 
     /**
-     * Release the knight's current quest
+     * Release the Knight's current {@link Quest}
      *
-     * @return the quest being released
+     * @return the {@link Quest} being released
      */
     public Quest releaseQuest() {
         if (quest != null) {
@@ -126,9 +126,9 @@ public class Knight extends Thread {
     }
 
     /**
-     * Assign a quest to the knight
+     * Assign a {@link Quest} to the Knight
      *
-     * @param quest the quest to assign to the knight
+     * @param quest the {@link Quest} to assign to the Knight
      */
     public void acquireQuest(Quest quest) {
         this.quest = quest;
