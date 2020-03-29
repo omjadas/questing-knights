@@ -44,11 +44,11 @@ public class Agenda {
      * @return quest that has been removed
      */
     public synchronized Quest removeComplete() {
+        // Wait until the agenda contains Quests
         while (getCompletedQuests().size() == 0) {
             try {
                 wait();
-            } catch (InterruptedException e) {
-            }
+            } catch (InterruptedException e) {}
         }
         Quest quest = getCompletedQuests().remove();
         quests.remove(quest);
@@ -62,11 +62,11 @@ public class Agenda {
      * @param quest quest to add to the Agenda
      */
     public synchronized void addNew(Quest quest) {
+        // Wait while the Agenda contains too many Quests
         while (quests.size() >= Params.AGENDA_SIZE) {
             try {
                 wait();
-            } catch (InterruptedException e) {
-            }
+            } catch (InterruptedException e) {}
         }
         quests.add(quest);
         notifyAll();
@@ -78,11 +78,11 @@ public class Agenda {
      * @return a quest
      */
     public synchronized Quest getQuest() {
+        // Wait while the Agenda does not contain any Quests
         while (quests.size() == 0) {
             try {
                 wait();
-            } catch (InterruptedException e) {
-            }
+            } catch (InterruptedException e) {}
         }
         Quest quest = quests.remove();
         notifyAll();

@@ -35,8 +35,7 @@ public class King extends Thread {
                 hall.endMeeting();
                 hall.exit(this);
                 sleep(Params.getKingWaitingTime());
-            } catch (InterruptedException e) {
-            }
+            } catch (InterruptedException e) {}
         }
     }
 

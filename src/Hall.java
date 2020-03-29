@@ -31,7 +31,7 @@ public class Hall {
     private final Table table;
 
     /**
-     * King of the Hall
+     * King of the Hall, null if the King is not present
      */
     private volatile King king;
 
@@ -66,11 +66,11 @@ public class Hall {
      * @param knight the knight entering the hall
      */
     public synchronized void enter(Knight knight) {
+        // Wait until the King is not present
         while (king != null) {
             try {
                 wait();
-            } catch (InterruptedException e) {
-            }
+            } catch (InterruptedException e) {}
         }
         knights.add(knight);
         System.out.println(
@@ -83,11 +83,11 @@ public class Hall {
      * @param knight the knight exiting the hall
      */
     public synchronized void exit(Knight knight) {
+        // Wait until the King is not present
         while (king != null) {
             try {
                 wait();
-            } catch (InterruptedException e) {
-            }
+            } catch (InterruptedException e) {}
         }
         knights.remove(knight);
         System.out.println(
@@ -101,6 +101,7 @@ public class Hall {
      * @param king the king entering the hall
      */
     public synchronized void enter(King king) {
+        // Wait until all Knights from previous meeting have left
         while (!knights.stream().allMatch(knight -> {
             Quest quest = knight.getQuest();
             if (quest != null) {
@@ -110,8 +111,7 @@ public class Hall {
         })) {
             try {
                 wait();
-            } catch (InterruptedException e) {
-            }
+            } catch (InterruptedException e) {}
         }
         this.king = king;
         System.out.println(
@@ -155,11 +155,11 @@ public class Hall {
      * Called at the start of the meeting
      */
     public synchronized void startMeeting() {
+        // Wait until all of the Knights are sitting at the Table
         while (table.numSitting() < knights.size()) {
             try {
                 wait();
-            } catch (InterruptedException e) {
-            }
+            } catch (InterruptedException e) {}
         }
         meetingInProgress = true;
         System.out.println("Meeting begins!");
@@ -172,11 +172,11 @@ public class Hall {
      * @param knight knight to perform actions
      */
     public synchronized void meeting(Knight knight) {
+        // Wait until the meeting is in progress
         while (!meetingInProgress) {
             try {
                 wait();
-            } catch (InterruptedException e) {
-            }
+            } catch (InterruptedException e) {}
         }
         Quest releasedQuest = knight.releaseQuest();
         if (releasedQuest != null) {
@@ -189,11 +189,11 @@ public class Hall {
      * Called at the end of the meeting
      */
     public synchronized void endMeeting() {
+        // Wait until no one is sitting
         while (table.numSitting() > 0) {
             try {
                 wait();
-            } catch (InterruptedException e) {
-            }
+            } catch (InterruptedException e) {}
         }
         meetingInProgress = false;
         System.out.println("Meeting ends!");

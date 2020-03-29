@@ -54,8 +54,7 @@ public class Knight extends Thread {
                         "%s completes %s!",
                         toString(),
                         quest.toString()));
-            } catch (InterruptedException e) {
-            }
+            } catch (InterruptedException e) {}
         }
     }
 
