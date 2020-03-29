@@ -4,7 +4,7 @@ import java.lang.Math;
 /**
  * Parameters for the questing knights simulator.
  *
- * @author ngeard@unimelb.edu.au
+ * @author Omja Das <835780>
  */
 class Params {
     static Random rnd = new Random();

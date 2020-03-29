@@ -1,7 +1,7 @@
 /**
  * Consumes completed {@link Quest}s from an {@link Agenda}.
  *
- * @author ngeard@unimelb.edu.au
+ * @author Omja Das <835780>
  */
 public class Consumer extends Thread {
     /**

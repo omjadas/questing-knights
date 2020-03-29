@@ -1,7 +1,7 @@
 /**
  * A Quest, with a unique ID, to be assigned to a {@link Knight} for completion.
  * 
- * @author ngeard@unimelb.edu.au
+ * @author Omja Das <835780>
  */
 public class Quest {
     /**

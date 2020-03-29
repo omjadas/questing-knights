@@ -5,7 +5,7 @@
  * - creating all the components of the system;
  * - starting all of the processes;
  *
- * @author ngeard@unimelb.edu.au
+ * @author Omja Das <835780>
  */
 public class Main {
     public static void main(String[] args) throws InterruptedException {

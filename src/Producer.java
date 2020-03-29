@@ -1,7 +1,7 @@
 /**
  * Produces new {@link Quest}s for the {@link Knight}s to complete.
  *
- * @author ngeard@unimelb.edu.au
+ * @author Omja Das <835780>
  */
 public class Producer extends Thread {
     /**

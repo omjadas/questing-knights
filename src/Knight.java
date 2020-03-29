@@ -118,7 +118,9 @@ public class Knight extends Thread {
      * @return the {@link Quest} being released
      */
     public Quest releaseQuest() {
+        Quest quest = this.quest;
         if (quest != null) {
+            this.quest = null;
             System.out.println(
                 String.format("%s releases %s.", toString(), quest.toString()));
         }
