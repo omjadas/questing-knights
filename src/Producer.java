@@ -19,13 +19,13 @@ public class Producer extends Thread {
     }
 
     /**
-     * Create {@link Quest}s and add them to {@link #agenda}
+     * Create {@link Quest}s and add them to {@link #Agenda}
      */
     @Override
     public void run() {
         while (!isInterrupted()) {
             try {
-                // create a new quest and send it to the agenda.
+                // create a new Quest and send it to the Agenda.
                 Quest quest = Quest.getNewQuest();
                 agenda.addNew(quest);
                 System.out.println(
@@ -34,7 +34,7 @@ public class Producer extends Thread {
                         quest.toString(),
                         agenda.getName()));
 
-                // let some time pass before the next quest arrives
+                // let some time pass before the next Quest arrives
                 sleep(Params.QUEST_ADDITION_TIME);
             } catch (InterruptedException e) {
                 this.interrupt();

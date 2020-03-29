@@ -49,9 +49,9 @@ public class Table {
     }
 
     /**
-     * Returns the number of {@link Knight}s sitting at the table
+     * Returns the number of {@link Knight}s sitting at the Table
      * 
-     * @return number of {@link Knight}s sitting at the table
+     * @return number of {@link Knight}s sitting at the Table
      */
     public synchronized int numSitting() {
         return knights.size();

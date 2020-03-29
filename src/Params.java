@@ -21,7 +21,7 @@ class Params {
     static final int MEAN_MINGLING_TIME = 200;
 
     /**
-     * Average duration that {@link Knight}s spend completing a quest
+     * Average duration that {@link Knight}s spend completing a {@link Quest}
      */
     static final int MEAN_QUESTING_TIME = 1200;
 

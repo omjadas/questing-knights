@@ -47,7 +47,7 @@ public class Agenda {
      * @return {@link Quest} that has been removed
      */
     public synchronized Quest removeComplete() {
-        // Wait until the agenda contains Quests
+        // Wait until the Agenda contains Quests
         while (getCompletedQuests().size() == 0) {
             try {
                 wait();

@@ -8,9 +8,15 @@
  * @author Omja Das <835780>
  */
 public class Main {
+    /**
+     * Run the simulation
+     * 
+     * @param args
+     * @throws InterruptedException
+     */
     public static void main(String[] args) throws InterruptedException {
 
-        // generate the hall and quest agendas
+        // generate the Hall and Agendas
         Agenda agendaNew = new Agenda("New Agenda");
         Agenda agendaComplete = new Agenda("Complete Agenda");
         Table roundTable = new Table("Round Table");
@@ -20,15 +26,15 @@ public class Main {
             agendaComplete,
             roundTable);
 
-        // generate the producer, consumer and king arthur processes
+        // generate the Producer, Consumer and King processes
         Producer producer = new Producer(agendaNew);
         Consumer consumer = new Consumer(agendaComplete);
         King kingArthur = new King("King Arthur", greatHall);
 
-        // create an array of knights
+        // create an array of Knights
         Knight[] knights = new Knight[Params.NUM_KNIGHTS];
 
-        // generate and start the individual knight processes
+        // generate and start the individual Knight processes
         for (int i = 0; i < Params.NUM_KNIGHTS; i++) {
             knights[i] = new Knight(i + 1, greatHall);
             knights[i].start();

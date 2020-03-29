@@ -67,7 +67,7 @@ public class Knight extends Thread {
      */
     @Override
     public String toString() {
-        return "Knight " + id;
+        return String.format("Knight %d", id);
     }
 
     /**
@@ -86,7 +86,7 @@ public class Knight extends Thread {
     /**
      * Compare the Knight with an Object
      *
-     * @param obj object to compare the quest to
+     * @param obj object to compare the Knight to
      * @return true if the Knight equals obj, false otherwise
      */
     @Override

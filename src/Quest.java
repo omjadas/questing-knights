@@ -5,7 +5,7 @@
  */
 public class Quest {
     /**
-     * A unique identifier for this quest
+     * A unique identifier for this Quest
      */
     private final int id;
 
@@ -15,7 +15,7 @@ public class Quest {
     private static int nextId = 1;
 
     /**
-     * A flag indicating whether the quest has been completed
+     * A flag indicating whether the Quest has been completed
      */
     private boolean completed = false;
 
@@ -60,13 +60,13 @@ public class Quest {
      */
     @Override
     public String toString() {
-        return "Quest " + id;
+        return String.format("Quest %d", id);
     }
 
     /**
      * Compare the Quest with an Object
      * 
-     * @param obj object to compare the quest to
+     * @param obj object to compare the Quest to
      * @return true if the Quest equals obj, false otherwise
      */
     @Override
