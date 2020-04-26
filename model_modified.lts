@@ -1,3 +1,9 @@
+/**
+ * Modified model of the questing knights simulator
+ *
+ * @author Omja Das <835780>
+ */
+
 // default values
 const AGENDA_SIZE = 1
 const NUM_KNIGHTS = 4
@@ -7,6 +13,7 @@ const FALSE = 0
 const TRUE = 1
 range BOOL = FALSE..TRUE
 
+// king process
 KING = (
     king_enter ->
     start_meeting ->
@@ -14,6 +21,8 @@ KING = (
     king_exit ->
     KING
 ).
+
+// knight process
 KNIGHT = (
     knight_enter ->
     knight_sit ->
@@ -24,7 +33,11 @@ KNIGHT = (
     questing ->
     KNIGHT
 ).
+
+// producer process
 PRODUCER = ( new.produce_quest -> PRODUCER ).
+
+// consumer process
 CONSUMER = ( complete.consume_quest -> CONSUMER ).
 
 /**
@@ -71,6 +84,9 @@ property SAFE_HALL(N=NUM_KNIGHTS) = (
     SAFE_HALL
 ).
 
+/**
+ * @param N number of knights in the simulation
+ */
 ||CHECK_HALL(N=NUM_KNIGHTS) = (HALL(N) || SAFE_HALL(N)).
 
 /**
@@ -89,6 +105,7 @@ MEETING[m:BOOL] = (
     when (m==TRUE) k[i:1..N].new.consume_quest -> MEETING[m]
 ).
 
+// check that meetings start before they end
 property SAFE_MEETING = (start_meeting -> end_meeting -> SAFE_MEETING).
 
 /**
@@ -130,7 +147,7 @@ property SAFE_AGENDA = (produce_quest -> consume_quest -> SAFE_AGENDA).
  * @param N number of knights in the simulation
  * @param A size of the agendas
  */
-||SYSTEM(N=NUM_KNIGHTS,A=AGENDA_SIZE) = (
+||SIMULATION(N=NUM_KNIGHTS,A=AGENDA_SIZE) = (
     KING ||
     KNIGHTS(N) ||
     {k[i:1..N]}::PRODUCER ||
@@ -144,6 +161,10 @@ property SAFE_AGENDA = (produce_quest -> consume_quest -> SAFE_AGENDA).
 // check that the king continues to enter and exit the hall
 progress KING_ENTER = {king_enter}
 progress KING_EXIT = {king_exit}
+
+// check that knights continue to enter and exit the hall
+progress KNIGHT_ENTER = {k[i:1..NUM_KNIGHTS].knight_enter}
+progress KNIGHT_EXIT = {k[i:1..NUM_KNIGHTS].knight_exit}
 
 // check that meetings continue to start and end
 progress START_MEETING = {start_meeting}
