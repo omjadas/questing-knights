@@ -1,0 +1,24 @@
+const AGENDA_SIZE = 1
+const NUM_KNIGHTS = 4
+
+KING = ( enter -> meeting -> exit -> KING ).
+KNIGHT = ( questing -> enter -> mingle -> meeting -> mingle -> exit -> KNIGHT ).
+PRODUCER = ( produce_quest -> PRODUCER ).
+CONSUMER = ( consume_quest -> CONSUMER ).
+
+AGENDA(N=AGENDA_SIZE) = COUNT[0],
+COUNT[i:0..N] = (
+    when (i<N) product_quest -> COUNT[i+1] |
+    when (i>0) consume_quest -> COUNT[i-1]
+).
+
+
+||KNIGHTS(N=NUM_KNIGHTS) = (k[i:1..N]:KNIGHT).
+
+||SYSTEM = (
+    KING ||
+    KNIGHTS(NUM_KNIGHTS) ||
+    PRODUCER ||
+    CONSUMER ||
+    AGENDA(AGENDA_SIZE)
+).
