@@ -6,19 +6,17 @@ range BOOL = FALSE..TRUE
 
 KING = (
     king_enter ->
-    king_sit ->
-    king_stand ->
+    start_meeting ->
+    end_meeting ->
     king_exit ->
     KING
 ).
 KNIGHT = (
     knight_enter ->
-    mingle ->
     knight_sit ->
     complete.produce_quest ->
     new.consume_quest ->
     knight_stand ->
-    mingle ->
     knight_exit ->
     questing ->
     KNIGHT
@@ -26,20 +24,24 @@ KNIGHT = (
 PRODUCER = ( new.produce_quest -> PRODUCER ).
 CONSUMER = ( complete.consume_quest -> CONSUMER ).
 
-TABLE(I=FALSE) = TA[I],
-TA[v:BOOL] = (
-    when (v==FALSE) k[i:1..NUM_KNIGHTS].knight_sit -> TA[FALSE] |
-        k[i:1..NUM_KNIGHTS].knight_stand -> TA[FALSE] |
-        king_sit -> TA[TRUE] |
-    when (v==TRUE) king_stand -> TA[FALSE]
+HALL = HA[FALSE][0][0],
+HA[a:BOOL][k:0..NUM_KNIGHTS][s:0..NUM_KNIGHTS] = (
+    k[i:1..NUM_KNIGHTS].knight_sit -> HA[a][k][s+1] |
+    k[i:1..NUM_KNIGHTS].knight_stand -> HA[a][k][s-1] |
+    when (s==0) end_meeting -> HA[a][k][s] |
+    when (s==k) start_meeting -> HA[a][k][s] |
+    when (a==FALSE) k[i:1..NUM_KNIGHTS].knight_enter -> HA[a][k+1][s] |
+    when (a==FALSE) k[i:1..NUM_KNIGHTS].knight_exit -> HA[a][k-1][s] |
+    when (a==FALSE) king_enter -> HA[TRUE][k][s] |
+    when (a==TRUE) king_exit -> HA[FALSE][k][s]
 ).
 
-HALL(I=FALSE) = HA[I],
-HA[v:BOOL] = (
-    when (v==FALSE) k[i:1..NUM_KNIGHTS].knight_enter -> HA[FALSE] |
-        k[i:1..NUM_KNIGHTS].knight_exit -> HA[FALSE] |
-        king_enter -> HA[TRUE] |
-    when (v==TRUE) king_exit -> HA[FALSE]
+MEETING = ME[FALSE],
+ME[m:BOOL] = (
+    start_meeting -> ME[TRUE] |
+    end_meeting -> ME[FALSE] |
+    when (m==TRUE) k[i:1..NUM_KNIGHTS].complete.produce_quest -> ME[m] |
+    when (m==TRUE) k[i:1..NUM_KNIGHTS].new.consume_quest -> ME[m]
 ).
 
 AGENDA(N=AGENDA_SIZE) = COUNT[0],
@@ -47,7 +49,6 @@ COUNT[i:0..N] = (
     when (i<N) produce_quest -> COUNT[i+1] |
     when (i>0) consume_quest -> COUNT[i-1]
 ).
-
 
 ||KNIGHTS(N=NUM_KNIGHTS) = (k[i:1..N]:KNIGHT).
 
@@ -58,6 +59,6 @@ COUNT[i:0..N] = (
     {k[i:1..NUM_KNIGHTS]}::CONSUMER ||
     {k[i:1..NUM_KNIGHTS]}::new:AGENDA(AGENDA_SIZE) ||
     {k[i:1..NUM_KNIGHTS]}::complete:AGENDA(AGENDA_SIZE) ||
-    HALL(FALSE) ||
-    TABLE(FALSE)
+    HALL ||
+    MEETING
 ).
