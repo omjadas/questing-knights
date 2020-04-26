@@ -60,6 +60,19 @@ HALL[a:BOOL][k:0..N][s:0..N] = (
 /**
  * @param N number of knights in the simulation
  */
+property SAFE_HALL(N=NUM_KNIGHTS) = (
+    king_enter ->
+    start_meeting -> 
+    end_meeting -> 
+    king_exit ->
+    SAFE_HALL
+).
+
+||CHECK_HALL(N=NUM_KNIGHTS) = (HALL(N) || SAFE_HALL(N)).
+
+/**
+ * @param N number of knights in the simulation
+ */
 MEETING(N=NUM_KNIGHTS) = MEETING[FALSE],
 /**
  * m whether a meeting is in progress
@@ -73,12 +86,19 @@ MEETING[m:BOOL] = (
     when (m==TRUE) k[i:1..N].new.consume_quest -> MEETING[m]
 ).
 
+property SAFE_MEETING = (start_meeting -> end_meeting -> SAFE_MEETING).
+
 /**
- * @param N size of the agenda
+ * @param N number of knights in the simulation
+ */
+||CHECK_MEETING(N=NUM_KNIGHTS) = (MEETING(N) || SAFE_MEETING).
+
+/**
+ * @param N number of quests the agenda can hold
  */
 AGENDA(N=AGENDA_SIZE) = AGENDA[0],
 /**
- * i number of quests in the agenda
+ * i number of quests currently in the agenda
  */
 AGENDA[i:0..N] = (
     // allow quests to be produced when there is space in the agenda
@@ -88,7 +108,19 @@ AGENDA[i:0..N] = (
     when (i>0) consume_quest -> AGENDA[i-1]
 ).
 
-// create all of the knights
+// only holds when agenda size is 1
+property SAFE_AGENDA = (produce_quest -> consume_quest -> SAFE_AGENDA).
+
+/**
+ * @param N number of quests the agenda can hold
+ */
+||CHECK_AGENDA(N=AGENDA_SIZE) = (AGENDA(N) || SAFE_AGENDA).
+
+/**
+ * create all of the knights
+ *
+ * @param N number of knights
+ */
 ||KNIGHTS(N=NUM_KNIGHTS) = (k[i:1..N]:KNIGHT).
 
 /**
@@ -100,8 +132,16 @@ AGENDA[i:0..N] = (
     KNIGHTS(N) ||
     {k[i:1..N]}::PRODUCER ||
     {k[i:1..N]}::CONSUMER ||
-    {k[i:1..N]}::new:AGENDA(A) ||
-    {k[i:1..N]}::complete:AGENDA(A) ||
-    HALL(N) ||
-    MEETING(N)
+    {k[i:1..N]}::new:CHECK_AGENDA(A) ||
+    {k[i:1..N]}::complete:CHECK_AGENDA(A) ||
+    CHECK_HALL(N) ||
+    CHECK_MEETING(N)
 ).
+
+// check that the king continues to enter and exit the hall
+progress KING_ENTER = {king_enter}
+progress KING_EXIT = {king_exit}
+
+// check that meetings continue to start and end
+progress START_MEETING = {start_meeting}
+progress ENG_MEETING = {end_meeting}
