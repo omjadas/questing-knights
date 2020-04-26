@@ -1,14 +1,50 @@
 const AGENDA_SIZE = 1
 const NUM_KNIGHTS = 4
+const FALSE = 0
+const TRUE = 1
+range BOOL = FALSE..TRUE
 
-KING = ( enter -> meeting -> exit -> KING ).
-KNIGHT = ( questing -> enter -> mingle -> meeting -> mingle -> exit -> KNIGHT ).
-PRODUCER = ( produce_quest -> PRODUCER ).
-CONSUMER = ( consume_quest -> CONSUMER ).
+KING = (
+    king_enter ->
+    king_sit ->
+    king_stand ->
+    king_exit ->
+    KING
+).
+KNIGHT = (
+    knight_enter ->
+    mingle ->
+    knight_sit ->
+    complete.produce_quest ->
+    new.consume_quest ->
+    knight_stand ->
+    mingle ->
+    knight_exit ->
+    questing ->
+    KNIGHT
+).
+PRODUCER = ( new.produce_quest -> PRODUCER ).
+CONSUMER = ( complete.consume_quest -> CONSUMER ).
+
+TABLE(I=FALSE) = TA[I],
+TA[v:BOOL] = (
+    when (v==FALSE) k[i:1..NUM_KNIGHTS].knight_sit -> TA[FALSE] |
+        k[i:1..NUM_KNIGHTS].knight_stand -> TA[FALSE] |
+        king_sit -> TA[TRUE] |
+    when (v==TRUE) king_stand -> TA[FALSE]
+).
+
+HALL(I=FALSE) = HA[I],
+HA[v:BOOL] = (
+    when (v==FALSE) k[i:1..NUM_KNIGHTS].knight_enter -> HA[FALSE] |
+        k[i:1..NUM_KNIGHTS].knight_exit -> HA[FALSE] |
+        king_enter -> HA[TRUE] |
+    when (v==TRUE) king_exit -> HA[FALSE]
+).
 
 AGENDA(N=AGENDA_SIZE) = COUNT[0],
 COUNT[i:0..N] = (
-    when (i<N) product_quest -> COUNT[i+1] |
+    when (i<N) produce_quest -> COUNT[i+1] |
     when (i>0) consume_quest -> COUNT[i-1]
 ).
 
@@ -18,7 +54,10 @@ COUNT[i:0..N] = (
 ||SYSTEM = (
     KING ||
     KNIGHTS(NUM_KNIGHTS) ||
-    PRODUCER ||
-    CONSUMER ||
-    AGENDA(AGENDA_SIZE)
+    {k[i:1..NUM_KNIGHTS]}::PRODUCER ||
+    {k[i:1..NUM_KNIGHTS]}::CONSUMER ||
+    {k[i:1..NUM_KNIGHTS]}::new:AGENDA(AGENDA_SIZE) ||
+    {k[i:1..NUM_KNIGHTS]}::complete:AGENDA(AGENDA_SIZE) ||
+    HALL(FALSE) ||
+    TABLE(FALSE)
 ).
