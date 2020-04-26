@@ -1,5 +1,8 @@
+// default values
 const AGENDA_SIZE = 1
 const NUM_KNIGHTS = 4
+
+// boolean values
 const FALSE = 0
 const TRUE = 1
 range BOOL = FALSE..TRUE
@@ -24,41 +27,81 @@ KNIGHT = (
 PRODUCER = ( new.produce_quest -> PRODUCER ).
 CONSUMER = ( complete.consume_quest -> CONSUMER ).
 
-HALL = HA[FALSE][0][0],
-HA[a:BOOL][k:0..NUM_KNIGHTS][s:0..NUM_KNIGHTS] = (
-    k[i:1..NUM_KNIGHTS].knight_sit -> HA[a][k][s+1] |
-    k[i:1..NUM_KNIGHTS].knight_stand -> HA[a][k][s-1] |
-    when (s==0) end_meeting -> HA[a][k][s] |
-    when (s==k) start_meeting -> HA[a][k][s] |
-    when (a==FALSE) k[i:1..NUM_KNIGHTS].knight_enter -> HA[a][k+1][s] |
-    when (a==FALSE) k[i:1..NUM_KNIGHTS].knight_exit -> HA[a][k-1][s] |
-    when (a==FALSE) king_enter -> HA[TRUE][k][s] |
-    when (a==TRUE) king_exit -> HA[FALSE][k][s]
+/**
+ * @param N number of knights in the simulation
+ */
+HALL(N=NUM_KNIGHTS) = HALL[FALSE][0][0],
+/**
+ * a whether the king is present
+ * k number of knights present in the hall
+ * s number of knights sitting at the table
+ */
+HALL[a:BOOL][k:0..N][s:0..N] = ( 
+    // knights can sit and stand whenever they like
+    k[i:1..N].knight_sit -> HALL[a][k][s+1] |
+    k[i:1..N].knight_stand -> HALL[a][k][s-1] |
+
+    // the king can enter and exit whenever he likes
+    king_enter -> HALL[TRUE][k][s] |
+    king_exit -> HALL[FALSE][k][s] |
+
+    // allow the meeting to start when all present knights are sitting
+    when (s==k) start_meeting -> HALL[a][k][s] |
+
+    // allow the meeting to end when all knights have stood up
+    when (s==0) end_meeting -> HALL[a][k][s] |
+
+
+    // allow knights to enter and exit when the king is not present
+    when (a==FALSE) k[i:1..N].knight_enter -> HALL[a][k+1][s] |
+    when (a==FALSE) k[i:1..N].knight_exit -> HALL[a][k-1][s]
 ).
 
-MEETING = ME[FALSE],
-ME[m:BOOL] = (
-    start_meeting -> ME[TRUE] |
-    end_meeting -> ME[FALSE] |
-    when (m==TRUE) k[i:1..NUM_KNIGHTS].complete.produce_quest -> ME[m] |
-    when (m==TRUE) k[i:1..NUM_KNIGHTS].new.consume_quest -> ME[m]
+/**
+ * @param N number of knights in the simulation
+ */
+MEETING(N=NUM_KNIGHTS) = MEETING[FALSE],
+/**
+ * m whether a meeting is in progress
+ */
+MEETING[m:BOOL] = (
+    start_meeting -> MEETING[TRUE] |
+    end_meeting -> MEETING[FALSE] |
+
+    // allow knigts to release and acquire quests while a meeting is in progress
+    when (m==TRUE) k[i:1..N].complete.produce_quest -> MEETING[m] |
+    when (m==TRUE) k[i:1..N].new.consume_quest -> MEETING[m]
 ).
 
-AGENDA(N=AGENDA_SIZE) = COUNT[0],
-COUNT[i:0..N] = (
-    when (i<N) produce_quest -> COUNT[i+1] |
-    when (i>0) consume_quest -> COUNT[i-1]
+/**
+ * @param N size of the agenda
+ */
+AGENDA(N=AGENDA_SIZE) = AGENDA[0],
+/**
+ * i number of quests in the agenda
+ */
+AGENDA[i:0..N] = (
+    // allow quests to be produced when there is space in the agenda
+    when (i<N) produce_quest -> AGENDA[i+1] |
+
+    // allow quests to be consumed when there are quests in the agenda
+    when (i>0) consume_quest -> AGENDA[i-1]
 ).
 
+// create all of the knights
 ||KNIGHTS(N=NUM_KNIGHTS) = (k[i:1..N]:KNIGHT).
 
-||SYSTEM = (
+/**
+ * @param N number of knights in the simulation
+ * @param A size of the agendas
+ */
+||SYSTEM(N=NUM_KNIGHTS,A=AGENDA_SIZE) = (
     KING ||
-    KNIGHTS(NUM_KNIGHTS) ||
-    {k[i:1..NUM_KNIGHTS]}::PRODUCER ||
-    {k[i:1..NUM_KNIGHTS]}::CONSUMER ||
-    {k[i:1..NUM_KNIGHTS]}::new:AGENDA(AGENDA_SIZE) ||
-    {k[i:1..NUM_KNIGHTS]}::complete:AGENDA(AGENDA_SIZE) ||
-    HALL ||
-    MEETING
+    KNIGHTS(N) ||
+    {k[i:1..N]}::PRODUCER ||
+    {k[i:1..N]}::CONSUMER ||
+    {k[i:1..N]}::new:AGENDA(A) ||
+    {k[i:1..N]}::complete:AGENDA(A) ||
+    HALL(N) ||
+    MEETING(N)
 ).
