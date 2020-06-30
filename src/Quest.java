@@ -1,6 +1,6 @@
 /**
  * A Quest, with a unique ID, to be assigned to a {@link Knight} for completion.
- * 
+ *
  * @author Omja Das <835780>
  */
 public class Quest {
@@ -30,7 +30,7 @@ public class Quest {
 
     /**
      * Get a new Quest instance with a unique identifier
-     * 
+     *
      * @return new Quest
      */
     public static Quest getNewQuest() {
@@ -65,7 +65,7 @@ public class Quest {
 
     /**
      * Compare the Quest with an Object
-     * 
+     *
      * @param obj object to compare the Quest to
      * @return true if the Quest equals obj, false otherwise
      */

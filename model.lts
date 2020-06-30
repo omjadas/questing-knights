@@ -49,7 +49,7 @@ HALL(N=NUM_KNIGHTS) = HALL[FALSE][0][0],
  * k number of knights present in the hall
  * s number of knights sitting at the table
  */
-HALL[a:BOOL][k:0..N][s:0..N] = ( 
+HALL[a:BOOL][k:0..N][s:0..N] = (
     // knights can sit and stand whenever they like
     k[i:1..N].knight_sit -> HALL[a][k][s+1] |
     k[i:1..N].knight_stand -> HALL[a][k][s-1] |
@@ -74,8 +74,8 @@ HALL[a:BOOL][k:0..N][s:0..N] = (
  */
 property SAFE_HALL(N=NUM_KNIGHTS) = (
     king_enter ->
-    start_meeting -> 
-    end_meeting -> 
+    start_meeting ->
+    end_meeting ->
     king_exit ->
     SAFE_HALL
 ).

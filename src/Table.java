@@ -39,7 +39,7 @@ public class Table {
 
     /**
      * Called when a {@link Knight} stands up
-     * 
+     *
      * @param knight {@link Knight} standing up
      */
     public synchronized void stand(Knight knight) {
@@ -50,7 +50,7 @@ public class Table {
 
     /**
      * Returns the number of {@link Knight}s sitting at the Table
-     * 
+     *
      * @return number of {@link Knight}s sitting at the Table
      */
     public synchronized int numSitting() {
